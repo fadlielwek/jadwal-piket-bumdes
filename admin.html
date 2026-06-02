@@ -1,231 +1,368 @@
+```html
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Admin Jadwal</title>
+<title>Kelola Jadwal Piket</title>
 
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
+<style>
+
+body{
+    background:#f4f6f9;
+}
+
+.card{
+    border:none;
+    border-radius:15px;
+}
+
+.table{
+    background:white;
+}
+
+.stat-card{
+    background:white;
+    padding:15px;
+    border-radius:15px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+</style>
+
 </head>
 
-<body class="bg-light">
+<body>
 
 <div class="container py-4">
 
-<h2 class="mb-4">
-⚙️ Kelola Jadwal Piket
-</h2>
+    <h2 class="mb-1">
+        ⚙️ Kelola Jadwal Piket
+    </h2>
 
-<form id="form">
+    <p class="text-muted mb-4">
+        Tambahkan, edit, atau hapus jadwal piket anggota.
+    </p>
 
-<input type="hidden" id="row">
+    <!-- Statistik -->
 
-<div class="row">
+    <div class="row mb-4">
 
-<div class="col-md-3">
-<input type="date"
-id="tanggal"
-class="form-control"
-required>
-</div>
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Yusuf</h6>
+                <h3 id="statYusuf">0</h3>
+            </div>
+        </div>
 
-<div class="col-md-2">
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Laila</h6>
+                <h3 id="statLaila">0</h3>
+            </div>
+        </div>
 
-<select id="petugas1"
-class="form-select">
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Khana</h6>
+                <h3 id="statKhana">0</h3>
+            </div>
+        </div>
 
-<option>Yusuf</option>
-<option>Laila</option>
-<option>Khana</option>
-<option>Anggun</option>
-<option>Hendri</option>
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Anggun</h6>
+                <h3 id="statAnggun">0</h3>
+            </div>
+        </div>
 
-</select>
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Hendri</h6>
+                <h3 id="statHendri">0</h3>
+            </div>
+        </div>
 
-</div>
+    </div>
 
-<div class="col-md-2">
+    <!-- Form -->
 
-<select id="petugas2"
-class="form-select">
+    <div class="card shadow-sm mb-4">
 
-<option value="">Kosong</option>
-<option>Yusuf</option>
-<option>Laila</option>
-<option>Khana</option>
-<option>Anggun</option>
-<option>Hendri</option>
+        <div class="card-header">
+            <h5 class="mb-0">📝 Form Jadwal Piket</h5>
+        </div>
 
-</select>
+        <div class="card-body">
 
-</div>
+            <form id="form">
 
-<div class="col-md-2">
+                <input type="hidden" id="row">
 
-<select id="status"
-class="form-select">
+                <div class="row g-3">
 
-<option>Piket</option>
-<option>Libur</option>
-<option>Kosong</option>
+                    <div class="col-md-3">
 
-</select>
+                        <label class="form-label">
+                            📅 Tanggal
+                        </label>
 
-</div>
+                        <input
+                            type="date"
+                            id="tanggal"
+                            class="form-control"
+                            required>
 
-<div class="col-md-3">
+                    </div>
 
-<button class="btn btn-success">
-💾 Simpan
-</button>
+                    <div class="col-md-2">
 
-</div>
+                        <label class="form-label">
+                            👤 Petugas 1
+                        </label>
 
-</div>
+                        <select
+                            id="petugas1"
+                            class="form-select">
 
-</form>
+                            <option>Yusuf</option>
+                            <option>Laila</option>
+                            <option>Khana</option>
+                            <option>Anggun</option>
+                            <option>Hendri</option>
 
-<hr>
+                        </select>
 
-<table class="table table-bordered">
+                    </div>
 
-<thead>
+                    <div class="col-md-2">
 
-<tr>
-<th>Tanggal</th>
-<th>Petugas</th>
-<th>Status</th>
-<th>Aksi</th>
-</tr>
+                        <label class="form-label">
+                            👥 Petugas 2
+                        </label>
 
-</thead>
+                        <select
+                            id="petugas2"
+                            class="form-select">
 
-<tbody id="tbody"></tbody>
+                            <option value="">Kosong</option>
+                            <option>Yusuf</option>
+                            <option>Laila</option>
+                            <option>Khana</option>
+                            <option>Anggun</option>
+                            <option>Hendri</option>
 
-</table>
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-2">
+
+                        <label class="form-label">
+                            📌 Keterangan
+                        </label>
+
+                        <select
+                            id="status"
+                            class="form-select">
+
+                            <option>Piket</option>
+                            <option>Libur</option>
+                            <option>Kosong</option>
+
+                        </select>
+
+                    </div>
+
+                    <div class="col-md-3 d-flex align-items-end">
+
+                        <button class="btn btn-success w-100">
+                            💾 Simpan Jadwal
+                        </button>
+
+                    </div>
+
+                </div>
+
+            </form>
+
+        </div>
+
+    </div>
+
+    <!-- Tabel -->
+
+    <div class="card shadow-sm">
+
+        <div class="card-header">
+            <h5 class="mb-0">📋 Daftar Jadwal</h5>
+        </div>
+
+        <div class="card-body">
+
+            <div class="table-responsive">
+
+                <table class="table table-bordered align-middle">
+
+                    <thead class="table-dark">
+
+                        <tr>
+                            <th>Tanggal</th>
+                            <th>Petugas</th>
+                            <th>Status</th>
+                            <th width="180">Aksi</th>
+                        </tr>
+
+                    </thead>
+
+                    <tbody id="tbody"></tbody>
+
+                </table>
+
+            </div>
+
+        </div>
+
+    </div>
 
 </div>
 
 <script>
 
-const API =
-"https://script.google.com/macros/s/AKfycbzHL2u3aI2L_tpjL7PrPJJGnKQavSoWQptKv0j5B6jE3CrJX4Al3M4t0d71Ze_1ibM9KQ/exec";
+const API = "PASTE_URL_APPS_SCRIPT_DISINI";
 
 loadData();
 
 async function loadData(){
 
-const res = await fetch(API);
-const data = await res.json();
+    const res = await fetch(API);
+    const data = await res.json();
 
-tbody.innerHTML='';
+    tbody.innerHTML='';
 
-data.forEach(item=>{
+    let stats = {
+        Yusuf:0,
+        Laila:0,
+        Khana:0,
+        Anggun:0,
+        Hendri:0
+    };
 
-tbody.innerHTML += `
-<tr>
+    data.forEach(item=>{
 
-<td>${item.tanggal}</td>
+        if(item.petugas1 && stats[item.petugas1] !== undefined)
+            stats[item.petugas1]++;
 
-<td>
-${item.petugas1}
-${item.petugas2 ? ' & '+item.petugas2:''}
-</td>
+        if(item.petugas2 && stats[item.petugas2] !== undefined)
+            stats[item.petugas2]++;
 
-<td>${item.status}</td>
+        tbody.innerHTML += `
+        <tr>
 
-<td>
+            <td>${item.tanggal}</td>
 
-<button
-class="btn btn-warning btn-sm"
-onclick='editData(${JSON.stringify(item)})'>
-Edit
-</button>
+            <td>
+                ${item.petugas1}
+                ${item.petugas2 ? ' & ' + item.petugas2 : ''}
+            </td>
 
-<button
-class="btn btn-danger btn-sm"
-onclick='hapus(${item.row})'>
-Hapus
-</button>
+            <td>
+                ${item.status}
+            </td>
 
-</td>
+            <td>
 
-</tr>
-`;
+                <button
+                class="btn btn-warning btn-sm"
+                onclick='editData(${JSON.stringify(item)})'>
+                Edit
+                </button>
 
-});
+                <button
+                class="btn btn-danger btn-sm"
+                onclick='hapus(${item.row})'>
+                Hapus
+                </button>
 
+            </td>
+
+        </tr>
+        `;
+    });
+
+    statYusuf.innerText = stats.Yusuf;
+    statLaila.innerText = stats.Laila;
+    statKhana.innerText = stats.Khana;
+    statAnggun.innerText = stats.Anggun;
+    statHendri.innerText = stats.Hendri;
 }
 
 function editData(item){
 
-row.value=item.row;
-tanggal.value=item.tanggal;
-petugas1.value=item.petugas1;
-petugas2.value=item.petugas2;
-status.value=item.status;
+    row.value = item.row;
+    tanggal.value = item.tanggal;
+    petugas1.value = item.petugas1;
+    petugas2.value = item.petugas2;
+    status.value = item.status;
 
+    window.scrollTo({
+        top:0,
+        behavior:'smooth'
+    });
 }
 
 async function hapus(rowNumber){
 
-if(!confirm("Hapus data?"))
-return;
+    if(!confirm("Yakin hapus jadwal ini?"))
+        return;
 
-await fetch(API,{
+    await fetch(API,{
+        method:"POST",
+        body:JSON.stringify({
+            action:"delete",
+            row:rowNumber
+        })
+    });
 
-method:"POST",
-
-body:JSON.stringify({
-
-action:"delete",
-
-row:rowNumber
-
-})
-
-});
-
-loadData();
-
+    loadData();
 }
 
 form.addEventListener("submit",async(e)=>{
 
-e.preventDefault();
+    e.preventDefault();
 
-const action =
-row.value ? "update":"add";
+    const action =
+        row.value ? "update" : "add";
 
-await fetch(API,{
+    await fetch(API,{
+        method:"POST",
+        body:JSON.stringify({
 
-method:"POST",
+            action,
 
-body:JSON.stringify({
+            row:row.value,
 
-action,
+            tanggal:tanggal.value,
 
-row:row.value,
+            petugas1:petugas1.value,
 
-tanggal:tanggal.value,
+            petugas2:petugas2.value,
 
-petugas1:petugas1.value,
+            status:status.value
 
-petugas2:petugas2.value,
+        })
+    });
 
-status:status.value
+    form.reset();
+    row.value='';
 
-})
-
-});
-
-form.reset();
-row.value='';
-
-loadData();
+    loadData();
 
 });
 
@@ -233,3 +370,4 @@ loadData();
 
 </body>
 </html>
+```
