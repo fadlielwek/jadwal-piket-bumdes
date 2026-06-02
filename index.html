@@ -3,173 +3,224 @@
 
 <head>
 
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <title>Jadwal Piket</title>
+<title>Jadwal Piket Karyawan</title>
 
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
 
-    <link href="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.css" rel="stylesheet">
+<style>
 
-    <style>
-        body {
-            background: #f4f6f9;
-        }
+body{
+    background:#f4f6f9;
+}
 
-        .stat-card {
-            border-radius: 15px;
-            padding: 15px;
-            background: white;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, .1);
-        }
+.header-card{
+    background:white;
+    border-radius:20px;
+    padding:25px;
+    box-shadow:0 3px 15px rgba(0,0,0,.08);
+}
 
-        #calendar {
-            background: white;
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 3px 15px rgba(0, 0, 0, .1);
-        }
-    </style>
+.stat-card{
+    background:white;
+    border-radius:15px;
+    padding:20px;
+    text-align:center;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.stat-card h3{
+    margin:0;
+    font-weight:bold;
+    color:#198754;
+}
+
+.table-card{
+    background:white;
+    border-radius:15px;
+    overflow:hidden;
+    box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+
+.badge-petugas{
+    background:#198754;
+    color:white;
+    padding:6px 10px;
+    border-radius:20px;
+    font-size:.85rem;
+    margin-right:4px;
+}
+
+</style>
 
 </head>
 
 <body>
 
-    <div class="container py-4">
+<div class="container py-4">
 
-        <h1 class="text-center mb-4">
-            📅 Jadwal Piket
-        </h1>
+    <div class="header-card mb-4">
 
-        <div class="row mb-4">
+        <h2 class="mb-2">
+            📅 Jadwal Piket Karyawan
+        </h2>
 
-            <div class="col">
-                <div class="stat-card text-center">
-                    <h5>Yusuf</h5>
-                    <span id="yusuf">0</span>x
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="stat-card text-center">
-                    <h5>Laila</h5>
-                    <span id="laila">0</span>x
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="stat-card text-center">
-                    <h5>Khana</h5>
-                    <span id="khana">0</span>x
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="stat-card text-center">
-                    <h5>Anggun</h5>
-                    <span id="anggun">0</span>x
-                </div>
-            </div>
-
-            <div class="col">
-                <div class="stat-card text-center">
-                    <h5>Hendri</h5>
-                    <span id="hendri">0</span>x
-                </div>
-            </div>
-
-        </div>
-
-        <div id="calendar"></div>
+        <p class="text-muted mb-0">
+            Informasi jadwal piket dan pembagian tugas anggota.
+        </p>
 
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js"></script>
+    <!-- Statistik -->
 
-    <script>
+    <div class="row g-3 mb-4">
 
-        const API =
-            "PASTE_URL_APPS_SCRIPT_DISINI";
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Yusuf</h6>
+                <h3 id="statYusuf">0</h3>
+                <small>Total Piket</small>
+            </div>
+        </div>
 
-        fetch(API)
-            .then(r => r.json())
-            .then(data => {
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Laila</h6>
+                <h3 id="statLaila">0</h3>
+                <small>Total Piket</small>
+            </div>
+        </div>
 
-                let events = [];
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Khana</h6>
+                <h3 id="statKhana">0</h3>
+                <small>Total Piket</small>
+            </div>
+        </div>
 
-                let statistik = {
-                    Yusuf: 0,
-                    Laila: 0,
-                    Khana: 0,
-                    Anggun: 0,
-                    Hendri: 0
-                };
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Anggun</h6>
+                <h3 id="statAnggun">0</h3>
+                <small>Total Piket</small>
+            </div>
+        </div>
 
-                data.forEach(item => {
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Hendri</h6>
+                <h3 id="statHendri">0</h3>
+                <small>Total Piket</small>
+            </div>
+        </div>
 
-                    let nama = '';
+    </div>
 
-                    if (item.petugas1) {
-                        nama += item.petugas1;
-                        statistik[item.petugas1]++;
-                    }
+    <!-- Jadwal -->
 
-                    if (item.petugas2) {
-                        nama += ' & ' + item.petugas2;
-                        statistik[item.petugas2]++;
-                    }
+    <div class="table-card">
 
-                    if (item.status === "Libur") {
-                        nama = "🔴 LIBUR";
-                    }
+        <div class="p-3 bg-success text-white">
+            <h5 class="mb-0">
+                📋 Daftar Jadwal Piket
+            </h5>
+        </div>
 
-                    events.push({
+        <div class="table-responsive">
 
-                        title: nama,
+            <table class="table table-bordered mb-0">
 
-                        start: item.tanggal,
+                <thead class="table-light">
 
-                        allDay: true
+                    <tr>
+                        <th width="180">Tanggal</th>
+                        <th>Petugas</th>
+                    </tr>
 
-                    });
+                </thead>
 
-                });
+                <tbody id="tbody"></tbody>
 
-                document.getElementById("yusuf").innerText =
-                    statistik.Yusuf;
+            </table>
 
-                document.getElementById("laila").innerText =
-                    statistik.Laila;
+        </div>
 
-                document.getElementById("khana").innerText =
-                    statistik.Khana;
+    </div>
 
-                document.getElementById("anggun").innerText =
-                    statistik.Anggun;
+</div>
 
-                document.getElementById("hendri").innerText =
-                    statistik.Hendri;
+<script>
 
-                let calendarEl =
-                    document.getElementById('calendar');
+const API = "https://script.google.com/macros/s/AKfycbzHL2u3aI2L_tpjL7PrPJJGnKQavSoWQptKv0j5B6jE3CrJX4Al3M4t0d71Ze_1ibM9KQ/exec";
 
-                let calendar =
-                    new FullCalendar.Calendar(calendarEl, {
+loadData();
 
-                        initialView: 'dayGridMonth',
+async function loadData(){
 
-                        locale: 'id',
+    const res = await fetch(API);
+    const data = await res.json();
 
-                        events: events
+    tbody.innerHTML = "";
 
-                    });
+    let stats = {
+        Yusuf:0,
+        Laila:0,
+        Khana:0,
+        Anggun:0,
+        Hendri:0
+    };
 
-                calendar.render();
+    data.sort((a,b)=>
+        new Date(a.tanggal) - new Date(b.tanggal)
+    );
 
-            });
+    data.forEach(item=>{
 
-    </script>
+        if(item.petugas1 && stats[item.petugas1] !== undefined)
+            stats[item.petugas1]++;
+
+        if(item.petugas2 && stats[item.petugas2] !== undefined)
+            stats[item.petugas2]++;
+
+        tbody.innerHTML += `
+        <tr>
+
+            <td>
+                ${item.tanggal}
+            </td>
+
+            <td>
+
+                <span class="badge-petugas">
+                    ${item.petugas1}
+                </span>
+
+                ${
+                    item.petugas2
+                    ?
+                    `<span class="badge-petugas">${item.petugas2}</span>`
+                    :
+                    ''
+                }
+
+            </td>
+
+        </tr>
+        `;
+    });
+
+    statYusuf.innerText = stats.Yusuf;
+    statLaila.innerText = stats.Laila;
+    statKhana.innerText = stats.Khana;
+    statAnggun.innerText = stats.Anggun;
+    statHendri.innerText = stats.Hendri;
+
+}
+
+</script>
 
 </body>
-
 </html>
