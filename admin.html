@@ -161,24 +161,6 @@ body{
 
                     </div>
 
-                    <div class="col-md-2">
-
-                        <label class="form-label">
-                            📌 Keterangan
-                        </label>
-
-                        <select
-                            id="status"
-                            class="form-select">
-
-                            <option>Piket</option>
-                            <option>Libur</option>
-                            <option>Kosong</option>
-
-                        </select>
-
-                    </div>
-
                     <div class="col-md-3 d-flex align-items-end">
 
                         <button class="btn btn-success w-100">
@@ -272,10 +254,6 @@ async function loadData(){
             </td>
 
             <td>
-                ${item.status}
-            </td>
-
-            <td>
 
                 <button
                 class="btn btn-warning btn-sm"
@@ -308,7 +286,6 @@ function editData(item){
     tanggal.value = item.tanggal;
     petugas1.value = item.petugas1;
     petugas2.value = item.petugas2;
-    status.value = item.status;
 
     window.scrollTo({
         top:0,
@@ -352,8 +329,6 @@ form.addEventListener("submit",async(e)=>{
             petugas1:petugas1.value,
 
             petugas2:petugas2.value,
-
-            status:status.value
 
         })
     });
