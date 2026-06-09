@@ -182,7 +182,12 @@ async function loadData(){
         Uswatun:0
     };
 
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date();
+
+    const todayString =
+        today.getFullYear() + '-' +
+        String(today.getMonth() + 1).padStart(2,'0') + '-' +
+        String(today.getDate()).padStart(2,'0');
 
     data.sort((a,b)=>
         new Date(a.tanggal) - new Date(b.tanggal)
@@ -196,13 +201,28 @@ async function loadData(){
         if(item.petugas2 && stats[item.petugas2] !== undefined)
             stats[item.petugas2]++;
 
-        const isToday = item.tanggal === today;
+        const itemDate = new Date(item.tanggal);
+
+        const itemString =
+            itemDate.getFullYear() + '-' +
+            String(itemDate.getMonth() + 1).padStart(2,'0') + '-' +
+            String(itemDate.getDate()).padStart(2,'0');
+
+        const isToday = itemString === todayString;
+
+        const tanggalIndonesia =
+            itemDate.toLocaleDateString('id-ID',{
+                weekday:'long',
+                day:'numeric',
+                month:'long',
+                year:'numeric'
+            });
 
         tbody.innerHTML += `
         <tr class="${isToday ? 'table-warning' : ''}">
 
             <td>
-                ${item.tanggal}
+                ${tanggalIndonesia}
 
                 ${
                     isToday
@@ -213,7 +233,6 @@ async function loadData(){
                     :
                     ''
                 }
-
             </td>
 
             <td>
