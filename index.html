@@ -182,6 +182,8 @@ async function loadData(){
         Uswatun:0
     };
 
+    const today = new Date().toISOString().split('T')[0];
+
     data.sort((a,b)=>
         new Date(a.tanggal) - new Date(b.tanggal)
     );
@@ -194,11 +196,24 @@ async function loadData(){
         if(item.petugas2 && stats[item.petugas2] !== undefined)
             stats[item.petugas2]++;
 
+        const isToday = item.tanggal === today;
+
         tbody.innerHTML += `
-        <tr>
+        <tr class="${isToday ? 'table-warning' : ''}">
 
             <td>
                 ${item.tanggal}
+
+                ${
+                    isToday
+                    ?
+                    `<span class="badge bg-danger ms-2">
+                        Hari Ini
+                    </span>`
+                    :
+                    ''
+                }
+
             </td>
 
             <td>
@@ -210,7 +225,9 @@ async function loadData(){
                 ${
                     item.petugas2
                     ?
-                    `<span class="badge-petugas">${item.petugas2}</span>`
+                    `<span class="badge-petugas">
+                        ${item.petugas2}
+                    </span>`
                     :
                     ''
                 }
@@ -227,10 +244,7 @@ async function loadData(){
     statAnggun.innerText = stats.Anggun;
     statHendri.innerText = stats.Hendri;
     statUswatun.innerText = stats.Uswatun;
-    
-
 }
-
 </script>
 
 </body>
