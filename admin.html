@@ -88,6 +88,13 @@ body{
             </div>
         </div>
 
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Uswatun</h6>
+                <h3 id="statHendri">0</h3>
+            </div>
+        </div>
+
     </div>
 
     <!-- Form -->
@@ -135,6 +142,7 @@ body{
                             <option>Khana</option>
                             <option>Anggun</option>
                             <option>Hendri</option>
+                            <option>Uswatun</option>
 
                         </select>
 
@@ -156,6 +164,7 @@ body{
                             <option>Khana</option>
                             <option>Anggun</option>
                             <option>Hendri</option>
+                            <option>Uswatun</option>
 
                         </select>
 
@@ -231,7 +240,9 @@ async function loadData(){
         Laila:0,
         Khana:0,
         Anggun:0,
-        Hendri:0
+        Hendri:0,
+        Uswatun:0
+        
     };
 
     data.forEach(item=>{
@@ -271,6 +282,8 @@ async function loadData(){
     statKhana.innerText = stats.Khana;
     statAnggun.innerText = stats.Anggun;
     statHendri.innerText = stats.Hendri;
+    statUswatun.innerText = stats.Uswatun;
+    
 }
 
 function editData(item){
