@@ -117,7 +117,15 @@ body{
             </div>
         </div>
 
-    </div>
+        <div class="col-md">
+            <div class="stat-card">
+                <h6>Uswatun</h6>
+                <h3 id="statHendri">0</h3>
+                <small>Total Piket</small>
+            </div>
+        </div>
+
+    </div> 
 
     <!-- Jadwal -->
 
@@ -170,7 +178,8 @@ async function loadData(){
         Laila:0,
         Khana:0,
         Anggun:0,
-        Hendri:0
+        Hendri:0,
+        Uswatun:0
     };
 
     data.sort((a,b)=>
@@ -217,6 +226,8 @@ async function loadData(){
     statKhana.innerText = stats.Khana;
     statAnggun.innerText = stats.Anggun;
     statHendri.innerText = stats.Hendri;
+    statUswatun.innerText = stats.Uswatun;
+    
 
 }
 
